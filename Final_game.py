@@ -14,6 +14,8 @@ class Final_Game:
         self.image1 = pygame.image.load('tank_blue.png')
         self.image2 = pygame.image.load('tank_red.png')
         self.heart = pygame.image.load('heart.bmp')
+        self.crate = pygame.image.load('crateWood.png')
+        self.crate_rect = self.crate.get_rect()
         self.grey_heart = pygame.image.load('greyheart.bmp.png')
         self.rect1 = self.image1.get_rect()
         self.rect2 = self.image2.get_rect()
@@ -37,8 +39,12 @@ class Final_Game:
         self.bullet2 = pygame.sprite.Group()
         self.bullet_allowed = 5
         self.boom = pygame.mixer.Sound('boom.wav')
-        self.font = pygame.font.Font('freesansbold.ttf',36)
-        self.text = pygame.font.Font.render(self,"Health",False,(255,255,255))
+        self.collision = pygame.mixer.Sound('collision.wav')
+        self.ship1_health = 5
+        self.ship2_health = 5
+
+        #self.font = pygame.font.Font('freesansbold.ttf',36)
+        #self.text = pygame.font.Font.render(self,"Health",False,(255,255,255))
         #self.text_rect = self.text.get_rect()
         #self.text_rect.center = self.screen.get_rect().center
 
@@ -110,6 +116,20 @@ class Final_Game:
             self.bullet2.add(new_bullet2)
             pygame.mixer.Sound.play(self.boom)
 
+    def check_collisions(self):
+        #HELPED BY PRESTON
+        for bullet2 in self.bullet2.copy():
+            if bullet2.bullet_rect2.colliderect(self.rect1.x,self.rect1.y,46,42):
+                self.bullet2.remove(bullet2)
+                self.ship1_health -= 1
+                pygame.mixer.Sound.play(self.collision)
+
+        for bullet1 in self.bullet1.copy():
+            if bullet1.bullet_rect1.colliderect(self.rect2.x,self.rect2.y,46,42):
+                self.bullet1.remove(bullet1)
+                self.ship2_health -= 1
+                pygame.mixer.Sound.play(self.collision)
+
     def update(self):
         """Updates screen based on the key presses before based on the predetermined tank speed"""
         if self.moving_right1 and self.rect1.right < self.screen_rect.right:
@@ -144,15 +164,87 @@ class Final_Game:
             bullet.draw_bullet()
         for bullet in self.bullet2.sprites():
             bullet.draw_bullet()
-        self.screen.blit(self.heart, (0,0))
-        self.screen.blit(self.heart,(50,0))
-        self.screen.blit(self.heart,(100,0))
-        self.screen.blit(self.heart,(150,0))
-        self.screen.blit(self.grey_heart,(200,0))
-        print(self.screen_width-50)
-        self.screen.blit(self.heart,(self.screen_rect.rightq-50,0))
+        self.screen.blit(self.crate, (200,250))
+        self.screen.blit(self.crate,(200,330))
+        self.screen.blit(self.crate,(200,410))
+        self.screen.blit(self.crate,(200,410))
+        self.screen.blit(self.crate,(self.screen_rect.right-300,250))
+        self.screen.blit(self.crate, (self.screen_rect.right-300, 330))
+        self.screen.blit(self.crate, (self.screen_rect.right-300, 410))
+        self.screen.blit(self.crate, (self.screen_rect.right-300, 410))
+        self.screen.blit(self.crate,(self.screen_rect.right/2-50,600))
+        if self.ship1_health == 5:
+            self.screen.blit(self.heart, (0,0))
+            self.screen.blit(self.heart,(50,0))
+            self.screen.blit(self.heart,(100,0))
+            self.screen.blit(self.heart,(150,0))
+            self.screen.blit(self.heart,(200,0))
+        if self.ship1_health == 4:
+            self.screen.blit(self.heart, (0,0))
+            self.screen.blit(self.heart,(50,0))
+            self.screen.blit(self.heart,(100,0))
+            self.screen.blit(self.heart,(150,0))
+            self.screen.blit(self.grey_heart,(200,0))
+        if self.ship1_health == 3:
+            self.screen.blit(self.heart, (0,0))
+            self.screen.blit(self.heart,(50,0))
+            self.screen.blit(self.heart,(100,0))
+            self.screen.blit(self.grey_heart,(150,0))
+            self.screen.blit(self.grey_heart,(200,0))
+        if self.ship1_health == 2:
+            self.screen.blit(self.heart, (0,0))
+            self.screen.blit(self.heart,(50,0))
+            self.screen.blit(self.grey_heart,(100,0))
+            self.screen.blit(self.grey_heart,(150,0))
+            self.screen.blit(self.grey_heart,(200,0))
+        if self.ship1_health == 1:
+            self.screen.blit(self.heart, (0,0))
+            self.screen.blit(self.grey_heart,(50,0))
+            self.screen.blit(self.grey_heart,(100,0))
+            self.screen.blit(self.grey_heart,(150,0))
+            self.screen.blit(self.grey_heart,(200,0))
+
+        #print(self.screen_width-50)
+        if self.ship2_health == 5:
+            self.screen.blit(self.heart, (self.screen_rect.right - 50, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 100, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 150, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 200, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 250, 0))
+        if self.ship2_health == 4:
+            self.screen.blit(self.heart, (self.screen_rect.right - 50, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 100, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 150, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 200, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 250, 0))
+        if self.ship2_health == 3:
+            self.screen.blit(self.heart, (self.screen_rect.right - 50, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 100, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 150, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 200, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 250, 0))
+        if self.ship2_health == 2:
+            self.screen.blit(self.heart, (self.screen_rect.right - 50, 0))
+            self.screen.blit(self.heart, (self.screen_rect.right - 100, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 150, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 200, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 250, 0))
+        if self.ship2_health == 1:
+            self.screen.blit(self.heart, (self.screen_rect.right - 50, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 100, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 150, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 200, 0))
+            self.screen.blit(self.grey_heart, (self.screen_rect.right - 250, 0))
+
+
+
         #self.screen.blit(self.text,self.text_rect)
         pygame.display.flip()
+
+    def map_collisions(self):
+        if self.rect1.colliderect(self.crate_rect.x,self.crate_rect.y,80,80):
+            self.moving_right1 = False
+            self.moving_left1 = False
 
 
 
@@ -164,15 +256,22 @@ class Final_Game:
             self.draw()
             self.bullet1.update()
             self.bullet2.update()
+            self.check_collisions()
+            self.map_collisions()
 
             for bullet in self.bullet1.copy():
-                if bullet.rect1.right >= self.screen_rect.right:
+                if bullet.bullet_rect1.right >= self.screen_rect.right:
                     self.bullet1.remove(bullet)
             for bullet in self.bullet2.copy():
-                if bullet.rect2.left <= self.screen_rect.left:
+                if bullet.bullet_rect2.left <= self.screen_rect.left:
                     self.bullet2.remove(bullet)
 
-tank_speed = .75
+            if self.ship1_health <= -1:
+                sys.exit()
+            if self.ship2_health <= -1:
+                sys.exit()
+
+tank_speed = 1.25
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 final_game = Final_Game(screen)
 final_game.run_game()
