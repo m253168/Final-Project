@@ -24,3 +24,5 @@ class Bullet1(Sprite):
 
     def draw_bullet(self):
         pygame.draw.rect(self.screen,self.bullet_color,self.bullet_rect1)
+
+#bulletspeed = 2

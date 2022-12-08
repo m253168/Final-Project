@@ -15,7 +15,9 @@ class Final_Game:
         self.image2 = pygame.image.load('tank_red.png')
         self.heart = pygame.image.load('heart.bmp')
         self.crate = pygame.image.load('crateWood.png')
-        self.crate_rect = self.crate.get_rect()
+        self.faster_bullets = pygame.image.load('Faster_bullets.png')
+        self.speed = pygame.image.load('Speed.png')
+        #self.crate_rect = self.crate.get_rect()
         self.grey_heart = pygame.image.load('greyheart.bmp.png')
         self.rect1 = self.image1.get_rect()
         self.rect2 = self.image2.get_rect()
@@ -42,6 +44,32 @@ class Final_Game:
         self.collision = pygame.mixer.Sound('collision.wav')
         self.ship1_health = 5
         self.ship2_health = 5
+
+        self.crate1_rect = (200,250,80,80)
+        self.crate2_rect = (200,330,80,80)
+        self.crate3_rect = (200,410,80,80)
+        self.crate4_rect = (self.screen_rect.right-300,250,80,80)
+        self.crate5_rect = (self.screen_rect.right - 300, 330, 80, 80)
+        self.crate6_rect = (self.screen_rect.right - 300, 410, 80, 80)
+        self.crate7_rect = (self.screen_rect.right/2-50,600,80,80)
+        self.crate8_rect = (self.screen_rect.right / 2 - 50, 100, 80, 80)
+        self.crate9_rect = (self.screen_rect.right/2-50,350,80,80)
+
+        self.heart1_rect = (0,0,50,50)
+        self.heart2_rect = (50,0,50,50)
+        self.heart3_rect = (100,0, 50,50)
+        self.heart4_rect = (150,0,50,50)
+        self.heart5_rect = (200,0,50,50)
+
+        self.heart6_rect = (self.screen_rect.right - 50, 0,50, 50)
+        self.heart7_rect = (self.screen_rect.right - 100, 0,50, 50)
+        self.heart8_rect = (self.screen_rect.right - 150, 0,50, 50)
+        self.heart9_rect = (self.screen_rect.right - 200, 0,50, 50)
+        self.heart10_rect = (self.screen_rect.right - 250, 0,50, 50)
+
+        self.speed_rect = (self.screen_rect.right/2-50,225,50,50)
+
+
 
         #self.font = pygame.font.Font('freesansbold.ttf',36)
         #self.text = pygame.font.Font.render(self,"Health",False,(255,255,255))
@@ -116,19 +144,65 @@ class Final_Game:
             self.bullet2.add(new_bullet2)
             pygame.mixer.Sound.play(self.boom)
 
-    def check_collisions(self):
+    def check_collisions1(self):
         #HELPED BY PRESTON
-        for bullet2 in self.bullet2.copy():
-            if bullet2.bullet_rect2.colliderect(self.rect1.x,self.rect1.y,46,42):
-                self.bullet2.remove(bullet2)
-                self.ship1_health -= 1
-                pygame.mixer.Sound.play(self.collision)
-
         for bullet1 in self.bullet1.copy():
             if bullet1.bullet_rect1.colliderect(self.rect2.x,self.rect2.y,46,42):
                 self.bullet1.remove(bullet1)
                 self.ship2_health -= 1
                 pygame.mixer.Sound.play(self.collision)
+            if bullet1.bullet_rect1.colliderect(200,250,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(200,330,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(200,410,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(self.screen_rect.right-300,250,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(self.screen_rect.right-300,330,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(self.screen_rect.right-300,410,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(self.screen_rect.right / 2 - 50, 600,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(self.screen_rect.right / 2 - 50, 100,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(self.screen_rect.right / 2 - 50, 350,80,80):
+                self.bullet1.remove(bullet1)
+            if bullet1.bullet_rect1.colliderect(200,0,50,50):
+                self.bullet1.remove(bullet1)
+            # if bullet1.bullet_rect1.colliderect(self.screen_rect.right/2-50,225,50,50):
+            #     bullet_speed += 10
+
+            # if pygame.Rect.colliderect(self.rect1, self.speed_rect) == True:
+            #     self.bullet_speed += 10
+
+    def check_collisions2(self):
+        for bullet2 in self.bullet2.copy():
+            if bullet2.bullet_rect2.colliderect(self.rect1.x,self.rect1.y,46,42):
+                self.bullet2.remove(bullet2)
+                self.ship1_health -= 1
+                pygame.mixer.Sound.play(self.collision)
+            if bullet2.bullet_rect2.colliderect(200,250,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(200,330,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(200,410,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(self.screen_rect.right-300,250,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(self.screen_rect.right-300,330,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(self.screen_rect.right-300,410,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(self.screen_rect.right / 2 - 50, 600,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(self.screen_rect.right / 2 - 50, 100,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(self.screen_rect.right / 2 - 50, 350,80,80):
+                self.bullet2.remove(bullet2)
+            if bullet2.bullet_rect2.colliderect(200,0,50,50):
+                self.bullet2.remove(bullet2)
 
     def update(self):
         """Updates screen based on the key presses before based on the predetermined tank speed"""
@@ -167,12 +241,13 @@ class Final_Game:
         self.screen.blit(self.crate, (200,250))
         self.screen.blit(self.crate,(200,330))
         self.screen.blit(self.crate,(200,410))
-        self.screen.blit(self.crate,(200,410))
         self.screen.blit(self.crate,(self.screen_rect.right-300,250))
         self.screen.blit(self.crate, (self.screen_rect.right-300, 330))
         self.screen.blit(self.crate, (self.screen_rect.right-300, 410))
-        self.screen.blit(self.crate, (self.screen_rect.right-300, 410))
         self.screen.blit(self.crate,(self.screen_rect.right/2-50,600))
+        self.screen.blit(self.crate, (self.screen_rect.right / 2 - 50, 100))
+        self.screen.blit(self.crate,(self.screen_rect.right/2-50,350))
+        self.screen.blit(self.speed,(self.screen_rect.right/2-50,225))
         if self.ship1_health == 5:
             self.screen.blit(self.heart, (0,0))
             self.screen.blit(self.heart,(50,0))
@@ -241,10 +316,188 @@ class Final_Game:
         #self.screen.blit(self.text,self.text_rect)
         pygame.display.flip()
 
-    def map_collisions(self):
-        if self.rect1.colliderect(self.crate_rect.x,self.crate_rect.y,80,80):
+    def map_collisions1(self):
+        if pygame.Rect.colliderect(self.rect1, self.crate1_rect) == True:
             self.moving_right1 = False
             self.moving_left1 = False
+            self.moving_down1 = False
+            #self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate2_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            #self.moving_down1 = False
+            #self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate3_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            #self.moving_down1 = False
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate4_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            self.moving_down1 = False
+            #self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate5_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            #self.moving_down1 = False
+           # self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate6_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            #self.moving_down1 = False
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate7_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            self.moving_down1 = False
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.crate8_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            self.moving_down1 = False
+            self.moving_up1 = False
+
+
+        if pygame.Rect.colliderect(self.rect1, self.crate9_rect) == True:
+            self.moving_right1 = False
+            self.moving_left1 = False
+            self.moving_down1 = False
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart1_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart2_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart3_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart4_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart5_rect) == True:
+            self.moving_up1 = False
+            self.moving_left1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart6_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart7_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart8_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart9_rect) == True:
+            self.moving_up1 = False
+
+        if pygame.Rect.colliderect(self.rect1, self.heart10_rect) == True:
+            self.moving_up1 = False
+            self.moving_right1 = False
+
+
+
+
+    def map_collisions2(self):
+        if pygame.Rect.colliderect(self.rect2, self.crate1_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            self.moving_down2 = False
+            #self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate2_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            #self.moving_down2 = False
+            #self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate3_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            #self.moving_down2 = False
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate4_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            self.moving_down2 = False
+            #self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate5_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            #self.moving_down2 = False
+            #self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate6_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            #self.moving_down2 = False
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate7_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            self.moving_down2 = False
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.crate8_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            self.moving_down2 = False
+            self.moving_up2 = False
+
+
+        if pygame.Rect.colliderect(self.rect2, self.crate9_rect) == True:
+            self.moving_right2 = False
+            self.moving_left2 = False
+            self.moving_down2 = False
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart1_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart2_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart3_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart4_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart5_rect) == True:
+            self.moving_up2 = False
+            self.moving_left2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart6_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart7_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart8_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart9_rect) == True:
+            self.moving_up2 = False
+
+        if pygame.Rect.colliderect(self.rect2, self.heart10_rect) == True:
+            self.moving_up2 = False
+            self.moving_right2 = False
+
+
+
+
 
 
 
@@ -256,8 +509,10 @@ class Final_Game:
             self.draw()
             self.bullet1.update()
             self.bullet2.update()
-            self.check_collisions()
-            self.map_collisions()
+            self.check_collisions1()
+            self.check_collisions2()
+            self.map_collisions1()
+            self.map_collisions2()
 
             for bullet in self.bullet1.copy():
                 if bullet.bullet_rect1.right >= self.screen_rect.right:
